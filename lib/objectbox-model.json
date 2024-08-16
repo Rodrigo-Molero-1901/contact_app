@@ -1,0 +1,106 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:5702767000179554303",
+      "lastPropertyId": "4:7829472556115548222",
+      "name": "Contact",
+      "properties": [
+        {
+          "id": "1:2164215858564340456",
+          "name": "objectId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:844311314231345452",
+          "name": "contactId",
+          "type": 9
+        },
+        {
+          "id": "3:3359550499976194649",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "4:7829472556115548222",
+          "name": "lastName",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:624948712207558715",
+      "lastPropertyId": "10:5153332657598414408",
+      "name": "ContactInformationEntity",
+      "properties": [
+        {
+          "id": "1:5165546764973806093",
+          "name": "objectId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7023186708467587733",
+          "name": "contactId",
+          "type": 9
+        },
+        {
+          "id": "3:3071514288189538113",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "4:728493765245066699",
+          "name": "lastName",
+          "type": 9
+        },
+        {
+          "id": "5:499230094000917913",
+          "name": "phoneNumber",
+          "type": 9
+        },
+        {
+          "id": "6:1333298475943622390",
+          "name": "streetAddress1",
+          "type": 9
+        },
+        {
+          "id": "7:5899146766531563348",
+          "name": "streetAddress2",
+          "type": 9
+        },
+        {
+          "id": "8:940464643967818717",
+          "name": "city",
+          "type": 9
+        },
+        {
+          "id": "9:2101488791809191933",
+          "name": "state",
+          "type": 9
+        },
+        {
+          "id": "10:5153332657598414408",
+          "name": "zipCode",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:624948712207558715",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
