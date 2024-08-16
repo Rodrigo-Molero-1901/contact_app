@@ -1,0 +1,17 @@
+name: peruvian_recipes_flutter
+packages:
+  - .
+
+scripts:
+  runner:
+    run: melos run clean && melos run get && melos run generate
+  clean:
+    run: flutter clean
+  get:
+    run: flutter pub get
+  generate:
+    run: flutter pub run build_runner build -d
+  intl:
+    run: flutter pub run intl_utils:generate
+  format:
+    run: dart format .
