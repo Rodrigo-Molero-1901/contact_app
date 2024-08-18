@@ -1,8 +1,11 @@
+import 'package:contact_app/core/router/router.dart';
 import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/home/presentation/blocs/home_cubit.dart';
+import 'package:contact_app/features/home/presentation/viewmodels/home_view_model.dart';
 import 'package:contact_app/features/home/presentation/views/home_main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -28,8 +31,16 @@ class _HomeViewState extends State<HomeView> {
       listener: (context, state) {
         switch (state) {
           case HomeLoading():
-          case HomeMain(:final viewModel):
             break;
+          case HomeMain(:final viewModel):
+            {
+              if (viewModel.navigation != null) {
+                switch (viewModel.navigation!) {
+                  case HomeContactInfoNavigation(:final contactId):
+                    context.push(Routes.pathContactInfo, extra: contactId);
+                }
+              }
+            }
         }
       },
       builder: (context, state) {

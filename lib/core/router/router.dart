@@ -3,7 +3,7 @@ abstract class Routes {
   static const String pathHome = "/home";
   static const String nameHome = "home";
 
-  // Detailed contact
-  static const String pathContactDetails = "/contact-details";
-  static const String nameContactDetails = "contact details";
+  // Contact information
+  static const String pathContactInfo = "/contact-info";
+  static const String nameContactInfo = "contact info";
 }

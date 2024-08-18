@@ -31,10 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: ThemeData.dark(useMaterial3: true),
         routerConfig: GoRouter(
           initialLocation: Routes.pathHome,
           routes: [
@@ -46,9 +43,10 @@ class MyApp extends StatelessWidget {
               },
             ),
             GoRoute(
-              path: Routes.pathContactDetails,
-              name: Routes.nameContactDetails,
+              path: Routes.pathContactInfo,
+              name: Routes.nameContactInfo,
               builder: (context, state) {
+                final contactId = state.extra! as String;
                 return Container();
               },
             ),

@@ -1,9 +1,11 @@
+import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/home/data/models/contact_model.dart';
 import 'package:contact_app/features/home/domain/usecases/get_contact_list.dart';
 import 'package:contact_app/features/home/presentation/utils/enums.dart';
 import 'package:contact_app/features/home/presentation/viewmodels/home_view_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
 part 'home_state.dart';
 
@@ -38,14 +40,33 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void _emitMain() {
+  void _emitMain({
+    HomeNavigationViewModel? navigation,
+  }) {
     emit(
       HomeMain(
         viewModel: HomeViewModel(
           contactListStatus: _contactListStatus,
           contactList: _contactList,
+          navigation: navigation,
         ),
       ),
     );
+  }
+
+  void onContactTapped(int pos) {
+    _emitMain(
+      navigation: HomeContactInfoNavigation(
+        contactId: _contactList[pos].contactId ?? '',
+      ),
+    );
+  }
+
+  void onCall() {
+    injector<Logger>().d('Executing call');
+  }
+
+  void onMessage() {
+    injector<Logger>().d('Executing SMS');
   }
 }

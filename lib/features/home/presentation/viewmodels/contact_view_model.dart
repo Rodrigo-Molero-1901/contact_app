@@ -18,4 +18,8 @@ class ContactViewModel {
       lastName: model.lastName ?? '',
     );
   }
+
+  String get fullName => '$firstName $lastName';
+
+  String get letterIdentifier => firstName[0];
 }

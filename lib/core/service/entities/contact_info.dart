@@ -40,4 +40,9 @@ class ContactInfo {
       zipCode: json?['zipCode'] ?? '',
     );
   }
+
+  @override
+  String toString() {
+    return 'ContactInfo(firstName: $firstName, lastName: $lastName)';
+  }
 }
