@@ -1,6 +1,8 @@
+import 'package:contact_app/features/contact_info/data/models/contact_info_model.dart';
 import 'package:contact_app/features/contact_info/domain/usecases/create_contact.dart';
 import 'package:contact_app/features/contact_info/domain/usecases/delete_contact.dart';
 import 'package:contact_app/features/contact_info/domain/usecases/update_contact.dart';
+import 'package:contact_app/features/contact_info/presentation/utils/enums.dart';
 import 'package:contact_app/features/contact_info/presentation/viewmodels/contact_info_view_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -22,10 +24,19 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
         _updateContactUseCase = updateContactUseCase,
         super(ContactInfoLoading());
 
+  var _contactInfoStatus = ContactInfoStatus.loading;
+  var _contactInfo = ContactInfoModel();
+
+  Future<void> initialize() async {
+    _emitMain();
+  }
+
   void _emitMain() {
     emit(
       ContactInfoMain(
-        viewModel: ContactInfoViewModel(),
+        viewModel: ContactInfoViewModel(
+          contactInfoStatus: _contactInfoStatus,
+        ),
       ),
     );
   }

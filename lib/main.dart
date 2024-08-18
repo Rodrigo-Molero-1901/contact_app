@@ -1,7 +1,11 @@
 import 'package:contact_app/core/router/router.dart';
 import 'package:contact_app/di/injection.dart';
+import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
+import 'package:contact_app/features/home/presentation/blocs/home_cubit.dart';
+import 'package:contact_app/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
@@ -19,30 +23,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      routerConfig: GoRouter(
-        initialLocation: Routes.pathHome,
-        routes: [
-          GoRoute(
-            path: Routes.pathHome,
-            name: Routes.nameHome,
-            builder: (context, state) {
-              return Container();
-            },
-          ),
-          GoRoute(
-            path: Routes.pathContactDetails,
-            name: Routes.nameContactDetails,
-            builder: (context, state) {
-              return Container();
-            },
-          ),
-        ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeCubit>(create: (_) => injector<HomeCubit>()),
+        BlocProvider<ContactInfoCubit>(
+            create: (_) => injector<ContactInfoCubit>()),
+      ],
+      child: MaterialApp.router(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routerConfig: GoRouter(
+          initialLocation: Routes.pathHome,
+          routes: [
+            GoRoute(
+              path: Routes.pathHome,
+              name: Routes.nameHome,
+              builder: (context, state) {
+                return const HomeView();
+              },
+            ),
+            GoRoute(
+              path: Routes.pathContactDetails,
+              name: Routes.nameContactDetails,
+              builder: (context, state) {
+                return Container();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

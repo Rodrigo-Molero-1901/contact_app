@@ -1,4 +1,4 @@
-class ContactInformationModel {
+class ContactInfoModel {
   int? objectId;
   String? contactId;
   String? firstName;
@@ -10,7 +10,7 @@ class ContactInformationModel {
   String? state;
   String? zipCode;
 
-  ContactInformationModel({
+  ContactInfoModel({
     this.objectId,
     this.contactId,
     this.firstName,

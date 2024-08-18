@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-class ContactInformationEntity {
+class ContactInfo {
   @Id()
   int objectId;
   String contactId;
@@ -14,7 +14,7 @@ class ContactInformationEntity {
   String state;
   String zipCode;
 
-  ContactInformationEntity({
+  ContactInfo({
     this.objectId = 0,
     required this.contactId,
     required this.firstName,
@@ -26,4 +26,18 @@ class ContactInformationEntity {
     required this.state,
     required this.zipCode,
   });
+
+  factory ContactInfo.fromJson(Map<String, dynamic>? json) {
+    return ContactInfo(
+      contactId: json?['contactID'] ?? '',
+      firstName: json?['firstName'] ?? '',
+      lastName: json?['lastName'] ?? '',
+      phoneNumber: json?['phoneNumber'] ?? '',
+      streetAddress1: json?['streetAddress1'] ?? '',
+      streetAddress2: json?['streetAddress2'] ?? '',
+      city: json?['city'] ?? '',
+      state: json?['state'] ?? '',
+      zipCode: json?['zipCode'] ?? '',
+    );
+  }
 }

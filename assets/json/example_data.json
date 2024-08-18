@@ -108,16 +108,5 @@
     "city": "New York",
     "state": "NY",
     "zipCode": "10001"
-  },
-  {
-    "contactID": "a1b2c3d4-e5f6-7890-abcd-1234567890ef",
-    "firstName": "Ivy",
-    "lastName": "Taylor",
-    "phoneNumber": "+1-555-8901",
-    "streetAddress1": "808 Poplar Rd",
-    "streetAddress2": "",
-    "city": "Los Angeles",
-    "state": "CA",
-    "zipCode": "90001"
   }
 ]
