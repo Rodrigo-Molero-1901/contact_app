@@ -1,6 +1,7 @@
 import 'package:contact_app/core/router/router.dart';
 import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
+import 'package:contact_app/features/contact_info/presentation/views/contact_info_view.dart';
 import 'package:contact_app/features/home/presentation/blocs/home_cubit.dart';
 import 'package:contact_app/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +44,20 @@ class MyApp extends StatelessWidget {
               },
             ),
             GoRoute(
+              path: Routes.pathAddContact,
+              name: Routes.nameAddContact,
+              builder: (context, state) {
+                return const ContactInfoView();
+              },
+            ),
+            GoRoute(
               path: Routes.pathContactInfo,
               name: Routes.nameContactInfo,
               builder: (context, state) {
-                final contactId = state.extra! as String;
-                return Container();
+                final contactId = state.extra as String?;
+                return ContactInfoView(
+                  contactId: contactId,
+                );
               },
             ),
           ],

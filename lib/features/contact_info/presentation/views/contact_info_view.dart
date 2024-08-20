@@ -1,11 +1,17 @@
 import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
 import 'package:contact_app/features/contact_info/presentation/views/contact_info_main_view.dart';
+import 'package:contact_app/shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactInfoView extends StatefulWidget {
-  const ContactInfoView({super.key});
+  final String? contactId;
+
+  const ContactInfoView({
+    super.key,
+    this.contactId,
+  });
 
   @override
   State<ContactInfoView> createState() => _ContactInfoViewState();
@@ -18,6 +24,7 @@ class _ContactInfoViewState extends State<ContactInfoView> {
   void initState() {
     super.initState();
     _contactInfoCubit = injector<ContactInfoCubit>();
+    _contactInfoCubit.initialize(widget.contactId);
   }
 
   @override
@@ -33,13 +40,16 @@ class _ContactInfoViewState extends State<ContactInfoView> {
       },
       builder: (context, state) {
         return Scaffold(
-          body: switch (state) {
-            ContactInfoLoading() => const SizedBox.shrink(),
-            ContactInfoMain(:final viewModel) => ContactInfoMainView(
-                viewModel: viewModel,
-                cubit: _contactInfoCubit,
-              ),
-          },
+          backgroundColor: AppContextColors.contactInfoBackground,
+          body: SafeArea(
+            child: switch (state) {
+              ContactInfoLoading() => const SizedBox.shrink(),
+              ContactInfoMain(:final viewModel) => ContactInfoMainView(
+                  viewModel: viewModel,
+                  cubit: _contactInfoCubit,
+                ),
+            },
+          ),
         );
       },
     );

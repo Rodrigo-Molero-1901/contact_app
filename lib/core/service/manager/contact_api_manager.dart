@@ -15,4 +15,48 @@ class ContactApiManager {
       return const Left(null);
     }
   }
+
+  Future<Either<void, ContactInfo>> getContact(
+      {required String contactId}) async {
+    try {
+      final contact =
+          await _api.contactApi.getContactInfo(contactId: contactId);
+      if (contact != null) return Right(contact);
+      return const Left(null);
+    } catch (_) {
+      return const Left(null);
+    }
+  }
+
+  Future<Either<void, ContactInfo>> createContact(
+      {required ContactInfo contactInfo}) async {
+    try {
+      final createContact =
+          await _api.contactApi.createContact(contactInfo: contactInfo);
+      return Right(createContact);
+    } catch (_) {
+      return const Left(null);
+    }
+  }
+
+  Future<Either<void, ContactInfo>> updateContact(
+      {required ContactInfo contactInfo}) async {
+    try {
+      final updatedContact =
+          await _api.contactApi.updateContact(contactInfo: contactInfo);
+      return Right(updatedContact);
+    } catch (_) {
+      return const Left(null);
+    }
+  }
+
+  Future<Either<void, bool>> deleteContact({required int objectId}) async {
+    try {
+      final contactWasDeleted =
+          await _api.contactApi.deleteContact(objectId: objectId);
+      return Right(contactWasDeleted);
+    } catch (_) {
+      return const Left(null);
+    }
+  }
 }

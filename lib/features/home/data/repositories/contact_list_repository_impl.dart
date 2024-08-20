@@ -18,7 +18,7 @@ class ContactListRepositoryImpl implements ContactListRepository {
         await _apiManager.contactApiManager.getContactList();
     return contactListResponse.fold(
       (error) => Left(error),
-      (response) => Right(response.map(contactFromEntity).toList()),
+      (response) => Right(response.map(contactModelFromEntity).toList()),
     );
   }
 }

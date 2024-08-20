@@ -1,6 +1,6 @@
 import 'package:contact_app/features/home/presentation/blocs/home_cubit.dart';
 import 'package:contact_app/features/home/presentation/viewmodels/home_view_model.dart';
-import 'package:contact_app/features/home/presentation/widgets/contact_row.dart';
+import 'package:contact_app/features/home/presentation/widgets/contact_group.dart';
 import 'package:flutter/material.dart';
 
 class HomeMainView extends StatelessWidget {
@@ -17,21 +17,32 @@ class HomeMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text('Contactos'),
-        Expanded(
-          child: ListView.builder(
-            itemCount: viewModel.contactListViewModels.length,
-            itemBuilder: (context, index) {
-              final contact = viewModel.contactListViewModels[index];
-              return ContactRow(
-                onContactTapped: () => cubit.onContactTapped(index),
-                onCall: cubit.onCall,
-                onMessage: cubit.onMessage,
-                contact: contact,
-              );
-            },
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Contacts',
+                style: TextStyle(
+                  fontSize: 22.0,
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: cubit.onCreateContactTapped,
+                icon: const Icon(Icons.add_outlined),
+              ),
+            ],
           ),
-        )
+        ),
+        const SizedBox(height: 10.0),
+        Expanded(
+          child: ContactGroup(
+            contactListViewModel: viewModel.contactListViewModels,
+            cubit: cubit,
+          ),
+        ),
       ],
     );
   }

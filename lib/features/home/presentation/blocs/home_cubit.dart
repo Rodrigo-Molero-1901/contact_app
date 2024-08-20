@@ -12,17 +12,18 @@ part 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final GetContactListUseCase _getContactListUseCase;
+  late final Logger _logger;
 
   HomeCubit({
     required GetContactListUseCase getContactListUseCase,
   })  : _getContactListUseCase = getContactListUseCase,
+        _logger = injector<Logger>(),
         super(HomeLoading());
 
   var _contactListStatus = ContactListStatus.loading;
   var _contactList = <ContactModel>[];
 
   Future<void> initialize() async {
-    _emitMain();
     await _getContactList();
     _emitMain();
   }
@@ -54,19 +55,28 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void onContactTapped(int pos) {
+  void onCreateContactTapped() {
+    _logger.d('Navigating to create contact...');
+    _emitMain(navigation: HomeAddContactNavigation());
+  }
+
+  void onContactTapped(String contactId) {
+    _logger.d('Navigating to contact info...');
+
     _emitMain(
-      navigation: HomeContactInfoNavigation(
-        contactId: _contactList[pos].contactId ?? '',
-      ),
+      navigation: HomeContactInfoNavigation(contactId: contactId),
     );
   }
 
-  void onCall() {
-    injector<Logger>().d('Executing call');
+  void onCall(String contactId) {
+    final contact =
+        _contactList.firstWhere((contact) => contact.contactId == contactId);
+    _logger.d('Calling ${contact.firstName}');
   }
 
-  void onMessage() {
-    injector<Logger>().d('Executing SMS');
+  void onMessage(String contactId) {
+    final contact =
+        _contactList.firstWhere((contact) => contact.contactId == contactId);
+    _logger.d('Sending SMS to ${contact.firstName}');
   }
 }
