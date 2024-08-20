@@ -17,12 +17,12 @@ class ActionButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
+        TextButton(
           onPressed: () => onCancel ?? Navigator.pop(context),
           child: Text('Cancel'),
         ),
         const SizedBox(width: 20.0),
-        ElevatedButton(
+        TextButton(
           onPressed: enableAcceptButton ? onAccept : null,
           child: Text('Accept'),
         ),
