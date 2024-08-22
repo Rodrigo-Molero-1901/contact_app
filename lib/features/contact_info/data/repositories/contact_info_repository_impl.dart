@@ -3,16 +3,14 @@ import 'package:contact_app/core/service/manager/api_manager.dart';
 import 'package:contact_app/features/contact_info/data/models/contact_info_mapper.dart';
 import 'package:contact_app/features/contact_info/data/models/contact_info_model.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:injectable/injectable.dart';
 import 'package:contact_app/features/contact_info/domain/repositories/contact_info_repository.dart';
 
-@Injectable(as: ContactInfoRepository)
 class ContactInfoRepositoryImpl implements ContactInfoRepository {
-  final ApiManager _apiManager;
+  late final ApiManager _apiManager;
 
-  ContactInfoRepositoryImpl({
-    required ApiManager apiManager,
-  }) : _apiManager = apiManager;
+  ContactInfoRepositoryImpl() {
+    _apiManager = ApiManager();
+  }
 
   @override
   Future<Either<void, ContactInfoModel>> getContact(

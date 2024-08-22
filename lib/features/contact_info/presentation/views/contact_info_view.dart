@@ -1,4 +1,3 @@
-import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
 import 'package:contact_app/features/contact_info/presentation/views/contact_info_main_view.dart';
 import 'package:contact_app/shared/constants/app_colors.dart';
@@ -23,7 +22,7 @@ class _ContactInfoViewState extends State<ContactInfoView> {
   @override
   void initState() {
     super.initState();
-    _contactInfoCubit = injector<ContactInfoCubit>();
+    _contactInfoCubit = context.read<ContactInfoCubit>();
     _contactInfoCubit.initialize(widget.contactId);
   }
 

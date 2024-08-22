@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:contact_app/core/service/entities/contact_info.dart';
-import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/objectbox.g.dart';
 import 'package:contact_app/shared/constants/app_files.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,7 @@ class ContactApi {
     this._store,
   ) {
     _box = _store.box<ContactInfo>();
-    _logger = injector<Logger>();
+    _logger = Logger();
   }
 
   Future<List<ContactInfo>> _setMockDataAndGetContactList() async {

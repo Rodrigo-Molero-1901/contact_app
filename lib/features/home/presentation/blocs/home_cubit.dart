@@ -1,24 +1,20 @@
-import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/home/data/models/contact_model.dart';
 import 'package:contact_app/features/home/domain/usecases/get_contact_list.dart';
 import 'package:contact_app/features/home/presentation/utils/enums.dart';
 import 'package:contact_app/features/home/presentation/viewmodels/home_view_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
 part 'home_state.dart';
 
-@injectable
 class HomeCubit extends Cubit<HomeState> {
-  final GetContactListUseCase _getContactListUseCase;
+  late final GetContactListUseCase _getContactListUseCase;
   late final Logger _logger;
 
-  HomeCubit({
-    required GetContactListUseCase getContactListUseCase,
-  })  : _getContactListUseCase = getContactListUseCase,
-        _logger = injector<Logger>(),
-        super(HomeLoading());
+  HomeCubit() : super(HomeLoading()) {
+    _getContactListUseCase = GetContactListUseCase();
+    _logger = Logger();
+  }
 
   var _contactListStatus = ContactListStatus.loading;
   var _contactList = <ContactModel>[];

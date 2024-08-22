@@ -1,5 +1,4 @@
 import 'package:contact_app/core/router/router.dart';
-import 'package:contact_app/di/injection.dart';
 import 'package:contact_app/features/home/presentation/blocs/home_cubit.dart';
 import 'package:contact_app/features/home/presentation/viewmodels/home_view_model.dart';
 import 'package:contact_app/features/home/presentation/views/home_main_view.dart';
@@ -21,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _homeCubit = injector<HomeCubit>();
+    _homeCubit = context.read<HomeCubit>();
     _homeCubit.initialize();
   }
 

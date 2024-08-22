@@ -1,16 +1,14 @@
 import 'package:contact_app/core/service/manager/api_manager.dart';
 import 'package:contact_app/features/home/data/models/contact_model.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:injectable/injectable.dart';
 import 'package:contact_app/features/home/domain/repositories/contact_list_repository.dart';
 
-@Injectable(as: ContactListRepository)
 class ContactListRepositoryImpl implements ContactListRepository {
-  final ApiManager _apiManager;
+  late final ApiManager _apiManager;
 
-  ContactListRepositoryImpl({
-    required ApiManager apiManager,
-  }) : _apiManager = apiManager;
+  ContactListRepositoryImpl() {
+    _apiManager = ApiManager();
+  }
 
   @override
   Future<Either<void, List<ContactModel>>> getContactList() async {

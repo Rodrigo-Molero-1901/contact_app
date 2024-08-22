@@ -1,5 +1,4 @@
-import 'package:contact_app/core/utils/app_utils.dart';
-import 'package:contact_app/di/injection.dart';
+import 'package:contact_app/core/utils/utils.dart';
 import 'package:contact_app/features/contact_info/data/models/contact_info_mapper.dart';
 import 'package:contact_app/features/contact_info/data/models/contact_info_model.dart';
 import 'package:contact_app/features/contact_info/domain/usecases/create_contact.dart';
@@ -9,30 +8,24 @@ import 'package:contact_app/features/contact_info/domain/usecases/update_contact
 import 'package:contact_app/features/contact_info/presentation/utils/enums.dart';
 import 'package:contact_app/features/contact_info/presentation/viewmodels/contact_info_view_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 import 'package:logger/web.dart';
 
 part 'contact_info_state.dart';
 
-@injectable
 class ContactInfoCubit extends Cubit<ContactInfoState> {
-  final GetContactInfoUseCase _getContactInfoUseCase;
-  final CreateContactUseCase _createContactUseCase;
-  final UpdateContactUseCase _updateContactUseCase;
-  final DeleteContactUseCase _deleteContactUseCase;
+  late final GetContactInfoUseCase _getContactInfoUseCase;
+  late final CreateContactUseCase _createContactUseCase;
+  late final UpdateContactUseCase _updateContactUseCase;
+  late final DeleteContactUseCase _deleteContactUseCase;
   late final Logger _logger;
 
-  ContactInfoCubit({
-    required GetContactInfoUseCase getContactInfoUseCase,
-    required CreateContactUseCase createContactUseCase,
-    required UpdateContactUseCase updateContactUseCase,
-    required DeleteContactUseCase deleteContactUseCase,
-  })  : _getContactInfoUseCase = getContactInfoUseCase,
-        _createContactUseCase = createContactUseCase,
-        _updateContactUseCase = updateContactUseCase,
-        _deleteContactUseCase = deleteContactUseCase,
-        _logger = injector<Logger>(),
-        super(ContactInfoLoading());
+  ContactInfoCubit() : super(ContactInfoLoading()) {
+    _getContactInfoUseCase = GetContactInfoUseCase();
+    _createContactUseCase = CreateContactUseCase();
+    _updateContactUseCase = UpdateContactUseCase();
+    _deleteContactUseCase = DeleteContactUseCase();
+    _logger = Logger();
+  }
 
   var _contactInfoStatus = ContactInfoStatus.loading;
   var _contactInfoPageType = ContactInfoPageType.withoutData;

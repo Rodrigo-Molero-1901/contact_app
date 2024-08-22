@@ -1,5 +1,5 @@
 import 'package:contact_app/core/router/router.dart';
-import 'package:contact_app/di/injection.dart';
+import 'package:contact_app/core/utils/database.dart';
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
 import 'package:contact_app/features/contact_info/presentation/views/contact_info_view.dart';
 import 'package:contact_app/features/home/presentation/blocs/home_cubit.dart';
@@ -15,7 +15,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-  await configureDependencies();
+  await AppDatabase.init();
   runApp(const MyApp());
 }
 
@@ -26,9 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeCubit>(create: (_) => injector<HomeCubit>()),
-        BlocProvider<ContactInfoCubit>(
-            create: (_) => injector<ContactInfoCubit>()),
+        BlocProvider<HomeCubit>(create: (_) => HomeCubit()),
+        BlocProvider<ContactInfoCubit>(create: (_) => ContactInfoCubit()),
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
