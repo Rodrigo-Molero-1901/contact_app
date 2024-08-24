@@ -4,7 +4,6 @@ import 'package:contact_app/features/contact_info/presentation/utils/enums.dart'
 class ContactInfoViewModel {
   final ContactInfoStatus contactInfoStatus;
   final ContactInfoPageType contactInfoPageType;
-  final ContactInfoEditingStatus contactInfoEditingStatus;
   final int objectId;
   final String contactId;
   final String firstName;
@@ -19,7 +18,6 @@ class ContactInfoViewModel {
   ContactInfoViewModel({
     required this.contactInfoStatus,
     required this.contactInfoPageType,
-    required this.contactInfoEditingStatus,
     required ContactInfoModel contact,
   })  : objectId = contact.objectId ?? 0,
         contactId = contact.contactId ?? '',
@@ -31,4 +29,10 @@ class ContactInfoViewModel {
         city = contact.city ?? '',
         state = contact.state ?? '',
         zipCode = contact.zipCode ?? '';
+
+  String get fullName => '$firstName $lastName';
+
+  String get letterIdentifier => firstName[0];
+
+  String get displayPhoneNumber => 'Phone number: $phoneNumber';
 }

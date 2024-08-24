@@ -11,3 +11,11 @@ class ContactInfoMain extends ContactInfoState {
     required this.viewModel,
   });
 }
+
+class ContactInfoEditing extends ContactInfoState {
+  final ContactInfoViewModel viewModel;
+
+  ContactInfoEditing({
+    required this.viewModel,
+  });
+}

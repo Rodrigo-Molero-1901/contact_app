@@ -29,17 +29,17 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
 
   var _contactInfoStatus = ContactInfoStatus.loading;
   var _contactInfoPageType = ContactInfoPageType.withoutData;
-  var _contactInfoEditingStatus = ContactInfoEditingStatus.inactive;
   var _contactInfo = ContactInfoModel();
 
   Future<void> initialize(String? contactId) async {
     if (contactId != null) {
       _contactInfoPageType = ContactInfoPageType.withData;
       await _getContact(contactId);
+      _emitMain();
     } else {
       _contactInfoPageType = ContactInfoPageType.withoutData;
+      _emitMain(showDetails: false);
     }
-    _emitMain();
   }
 
   Future<void> _getContact(String contactId) async {
@@ -57,32 +57,29 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
     );
   }
 
-  void _emitMain() {
+  void _emitMain({bool showDetails = true}) {
+    ContactInfoViewModel viewModel = ContactInfoViewModel(
+      contactInfoStatus: _contactInfoStatus,
+      contactInfoPageType: _contactInfoPageType,
+      contact: _contactInfo,
+    );
+
     emit(
-      ContactInfoMain(
-        viewModel: ContactInfoViewModel(
-          contactInfoStatus: _contactInfoStatus,
-          contactInfoPageType: _contactInfoPageType,
-          contactInfoEditingStatus: _contactInfoEditingStatus,
-          contact: _contactInfo,
-        ),
-      ),
+      showDetails
+          ? ContactInfoMain(viewModel: viewModel)
+          : ContactInfoEditing(viewModel: viewModel),
     );
   }
+
+  void onEditButtonTapped() => _emitMain(showDetails: false);
+
+  void goToContactInfoView() => _emitMain();
 
   void setContact(ContactInfoModel model) {
     _contactInfo = model;
     if ((model.contactId ?? '').isEmpty) {
       _contactInfo.contactId = AppUtils.generateRandomContactID();
     }
-  }
-
-  void changeEditingStatus() {
-    _contactInfoEditingStatus =
-        _contactInfoEditingStatus == ContactInfoEditingStatus.active
-            ? ContactInfoEditingStatus.inactive
-            : ContactInfoEditingStatus.active;
-    _emitMain();
   }
 
   Future<void> createContact() async {
@@ -113,7 +110,7 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
     );
   }
 
-  Future<void> deleteContact() async {
+  Future<void> onDeleteButtonTapped() async {
     final result = await _deleteContactUseCase.deleteContact(
       objectId: _contactInfo.objectId ?? 0,
     );

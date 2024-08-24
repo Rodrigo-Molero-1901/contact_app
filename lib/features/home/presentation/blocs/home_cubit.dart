@@ -53,12 +53,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onCreateContactTapped() {
     _logger.d('Navigating to create contact...');
-    _emitMain(navigation: HomeAddContactNavigation());
+    _emitMain(navigation: HomeContactInfoNavigation());
   }
 
   void onContactTapped(String contactId) {
     _logger.d('Navigating to contact info...');
-
     _emitMain(
       navigation: HomeContactInfoNavigation(contactId: contactId),
     );

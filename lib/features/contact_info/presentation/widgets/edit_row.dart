@@ -1,19 +1,17 @@
 import 'package:contact_app/shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class InformationRow extends StatelessWidget {
+class EditRow extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final IconData icon;
   final bool useTextInputActionDone;
-  final bool enabled;
 
-  const InformationRow({
+  const EditRow({
     super.key,
     required this.controller,
     required this.hint,
     required this.icon,
-    this.enabled = true,
     this.useTextInputActionDone = false,
   });
 
@@ -37,10 +35,9 @@ class InformationRow extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     controller: controller,
-                    enabled: enabled,
                     decoration: InputDecoration(
-                      border: InputBorder.none, // Removes the underline
-                      hintText: hint, // Displays the title as a hint
+                      border: InputBorder.none,
+                      hintText: hint,
                     ),
                     textInputAction: useTextInputActionDone
                         ? TextInputAction.done

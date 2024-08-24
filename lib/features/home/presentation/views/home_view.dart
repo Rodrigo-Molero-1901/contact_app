@@ -33,9 +33,6 @@ class _HomeViewState extends State<HomeView> {
           if (viewModel.navigation != null) {
             bool actionWasPerformed = false;
             switch (viewModel.navigation!) {
-              case HomeAddContactNavigation():
-                final result = await context.push(Routes.pathAddContact);
-                actionWasPerformed = result == true;
               case HomeContactInfoNavigation(:final contactId):
                 final result = await context.push(
                   Routes.pathContactInfo,

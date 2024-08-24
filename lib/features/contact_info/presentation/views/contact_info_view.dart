@@ -1,5 +1,6 @@
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
 import 'package:contact_app/features/contact_info/presentation/views/contact_info_main_view.dart';
+import 'package:contact_app/features/contact_info/presentation/views/edit_contact_view.dart';
 import 'package:contact_app/shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,7 @@ class _ContactInfoViewState extends State<ContactInfoView> {
         switch (state) {
           case ContactInfoLoading():
           case ContactInfoMain(:final viewModel):
+          case ContactInfoEditing():
             break;
         }
       },
@@ -44,6 +46,10 @@ class _ContactInfoViewState extends State<ContactInfoView> {
             child: switch (state) {
               ContactInfoLoading() => const SizedBox.shrink(),
               ContactInfoMain(:final viewModel) => ContactInfoMainView(
+                  viewModel: viewModel,
+                  cubit: _contactInfoCubit,
+                ),
+              ContactInfoEditing(:final viewModel) => EditContactView(
                   viewModel: viewModel,
                   cubit: _contactInfoCubit,
                 ),

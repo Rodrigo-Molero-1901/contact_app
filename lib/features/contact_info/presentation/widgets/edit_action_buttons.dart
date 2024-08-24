@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ActionButtons extends StatelessWidget {
+class EditActionButtons extends StatelessWidget {
   final bool enableAcceptButton;
   final Function() onAccept;
-  final Function()? onCancel;
+  final Function() onCancel;
 
-  const ActionButtons({
+  const EditActionButtons({
     super.key,
     required this.enableAcceptButton,
     required this.onAccept,
-    this.onCancel,
+    required this.onCancel,
   });
 
   @override
@@ -18,13 +18,13 @@ class ActionButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
-          onPressed: () => onCancel ?? Navigator.pop(context),
-          child: Text('Cancel'),
+          onPressed: onCancel,
+          child: const Text('Cancel'),
         ),
         const SizedBox(width: 20.0),
         TextButton(
           onPressed: enableAcceptButton ? onAccept : null,
-          child: Text('Accept'),
+          child: const Text('Accept'),
         ),
       ],
     );

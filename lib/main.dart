@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeCubit>(create: (_) => HomeCubit()),
-        BlocProvider<ContactInfoCubit>(create: (_) => ContactInfoCubit()),
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
@@ -43,19 +42,15 @@ class MyApp extends StatelessWidget {
               },
             ),
             GoRoute(
-              path: Routes.pathAddContact,
-              name: Routes.nameAddContact,
-              builder: (context, state) {
-                return const ContactInfoView();
-              },
-            ),
-            GoRoute(
               path: Routes.pathContactInfo,
               name: Routes.nameContactInfo,
               builder: (context, state) {
                 final contactId = state.extra as String?;
-                return ContactInfoView(
-                  contactId: contactId,
+                return BlocProvider<ContactInfoCubit>(
+                  create: (_) => ContactInfoCubit(),
+                  child: ContactInfoView(
+                    contactId: contactId,
+                  ),
                 );
               },
             ),
