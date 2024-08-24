@@ -25,7 +25,8 @@ abstract class AppContextColors {
   static const contactInfoBackground = _AppColors.black;
   static const contactCardBackground = _AppColors.nero;
   static const contactAvatar = _AppColors.deepPurpleAccent;
-  static const contactInfoRow = _AppColors.nero;
+  static const addressLabel = _AppColors.grey;
+  static const contactInfoRowBackground = _AppColors.nero;
   static const emptyInfoField = _AppColors.grey;
 
   /// Contact info action buttons
@@ -34,5 +35,5 @@ abstract class AppContextColors {
   static const actionEmail = _AppColors.grey;
 
   // Edit contact
-  static const editRow = _AppColors.nero;
+  static const editRowBackground = _AppColors.nero;
 }

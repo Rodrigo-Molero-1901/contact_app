@@ -19,7 +19,7 @@ class InformationRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: const BoxDecoration(
-        color: AppContextColors.contactInfoRow,
+        color: AppContextColors.contactInfoRowBackground,
       ),
       child: Column(
         children: [

@@ -21,7 +21,7 @@ class EditRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: const BoxDecoration(
-        color: AppContextColors.editRow,
+        color: AppContextColors.editRowBackground,
       ),
       child: Column(
         children: [
