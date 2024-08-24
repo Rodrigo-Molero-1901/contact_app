@@ -5,6 +5,7 @@ class EditRow extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final IconData icon;
+  final bool showDivider;
   final bool useTextInputActionDone;
 
   const EditRow({
@@ -12,16 +13,15 @@ class EditRow extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.icon,
+    this.showDivider = true,
     this.useTextInputActionDone = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      decoration: BoxDecoration(
-        color: AppContextColors.infoRow,
-        borderRadius: BorderRadius.circular(20.0),
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: AppContextColors.editRow,
       ),
       child: Column(
         children: [
@@ -47,6 +47,18 @@ class EditRow extends StatelessWidget {
               ],
             ),
           ),
+          if (showDivider)
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 80.0,
+                right: 20.0,
+              ),
+              child: Divider(
+                height: 0,
+                indent: 0,
+                thickness: 1,
+              ),
+            ),
         ],
       ),
     );

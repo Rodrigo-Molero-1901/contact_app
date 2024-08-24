@@ -1,6 +1,7 @@
 import 'package:contact_app/features/contact_info/data/models/address_model.dart';
 import 'package:contact_app/features/contact_info/data/models/contact_info_model.dart';
 import 'package:contact_app/features/contact_info/presentation/utils/enums.dart';
+import 'package:contact_app/features/contact_info/presentation/viewmodels/address_view_model.dart';
 
 class ContactInfoViewModel {
   final ContactInfoStatus contactInfoStatus;
@@ -10,10 +11,7 @@ class ContactInfoViewModel {
   final String firstName;
   final String lastName;
   final String phoneNumber;
-  final String city;
-  final String state;
-  final String zipCode;
-  final List<String> addresses;
+  final List<AddressViewModel> addressesViewModels;
 
   ContactInfoViewModel({
     required this.contactInfoStatus,
@@ -25,10 +23,8 @@ class ContactInfoViewModel {
         firstName = contact.firstName ?? '',
         lastName = contact.lastName ?? '',
         phoneNumber = contact.phoneNumber ?? '',
-        city = contact.city ?? '',
-        state = contact.state ?? '',
-        zipCode = contact.zipCode ?? '',
-        addresses = addresses.map((model) => model.addressName ?? '').toList();
+        addressesViewModels =
+            addresses.map(AddressViewModel.fromModel).toList();
 
   String get fullName => '$firstName $lastName';
 

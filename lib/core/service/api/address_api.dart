@@ -1,4 +1,5 @@
 import 'package:contact_app/core/service/entities/address.dart';
+import 'package:contact_app/core/utils/logger.dart';
 import 'package:contact_app/objectbox.g.dart';
 import 'package:logger/logger.dart';
 
@@ -11,7 +12,7 @@ class AddressApi {
     this._store,
   ) {
     _addressBox = _store.box<Address>();
-    _logger = Logger();
+    _logger = LoggerUtils.instance;
   }
 
   Future<List<Address>> insertAddresses(

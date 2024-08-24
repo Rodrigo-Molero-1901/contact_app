@@ -9,9 +9,6 @@ ContactInfoModel contactInfoModelFromEntity(ContactInfo entity) {
     firstName: entity.firstName,
     lastName: entity.lastName,
     phoneNumber: entity.phoneNumber,
-    city: entity.city,
-    state: entity.state,
-    zipCode: entity.zipCode,
     addresses: entity.addresses.map((e) => addressModelFromEntity(e)).toList(),
   );
 }
@@ -23,8 +20,5 @@ ContactInfo contactInfoModelToEntity(ContactInfoModel model) {
     firstName: model.firstName ?? '',
     lastName: model.lastName ?? '',
     phoneNumber: model.phoneNumber ?? '',
-    city: model.city ?? '',
-    state: model.state ?? '',
-    zipCode: model.zipCode ?? '',
   );
 }

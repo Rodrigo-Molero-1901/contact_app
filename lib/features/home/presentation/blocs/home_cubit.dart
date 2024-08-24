@@ -1,3 +1,4 @@
+import 'package:contact_app/core/utils/logger.dart';
 import 'package:contact_app/features/home/data/models/contact_model.dart';
 import 'package:contact_app/features/home/domain/usecases/get_contact_list.dart';
 import 'package:contact_app/features/home/presentation/utils/enums.dart';
@@ -13,7 +14,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit() : super(HomeLoading()) {
     _getContactListUseCase = GetContactListUseCase();
-    _logger = Logger();
+    _logger = LoggerUtils.instance;
   }
 
   var _contactListStatus = ContactListStatus.loading;

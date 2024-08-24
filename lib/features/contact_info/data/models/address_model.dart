@@ -1,9 +1,22 @@
 class AddressModel {
   int? objectId;
-  String? addressName;
+  String? streetAddress;
+  String? city;
+  String? state;
+  String? zipCode;
 
   AddressModel({
     this.objectId,
-    this.addressName,
+    this.streetAddress,
+    this.city,
+    this.state,
+    this.zipCode,
   });
+
+  bool get isEmpty {
+    return (streetAddress ?? '').isEmpty &&
+        (city ?? '').isEmpty &&
+        (state ?? '').isEmpty &&
+        (zipCode ?? '').isEmpty;
+  }
 }

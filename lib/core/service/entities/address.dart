@@ -5,12 +5,27 @@ import 'package:objectbox/objectbox.dart';
 class Address {
   @Id()
   int objectId;
-  String addressName;
+  String streetAddress;
+  String city;
+  String state;
+  String zipCode;
 
   final contact = ToOne<ContactInfo>();
 
   Address({
     this.objectId = 0,
-    required this.addressName,
+    required this.streetAddress,
+    required this.city,
+    required this.state,
+    required this.zipCode,
   });
+
+  factory Address.fromJson(Map<String, dynamic>? json) {
+    return Address(
+      streetAddress: json?['streetAddress'] ?? '',
+      city: json?['city'] ?? '',
+      state: json?['state'] ?? '',
+      zipCode: json?['zipCode'] ?? '',
+    );
+  }
 }

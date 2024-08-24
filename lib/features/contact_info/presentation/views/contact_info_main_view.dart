@@ -45,8 +45,10 @@ class ContactInfoMainView extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(viewModel.fullName),
-                        const SizedBox(height: 5.0),
-                        Text(viewModel.displayPhoneNumber),
+                        if (viewModel.displayPhoneNumber.isNotEmpty) ...[
+                          const SizedBox(height: 5.0),
+                          Text(viewModel.displayPhoneNumber),
+                        ],
                       ],
                     ),
                   ),

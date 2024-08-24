@@ -6,9 +6,6 @@ class ContactInfoModel {
   String? firstName;
   String? lastName;
   String? phoneNumber;
-  String? city;
-  String? state;
-  String? zipCode;
   List<AddressModel>? addresses;
 
   ContactInfoModel({
@@ -17,9 +14,6 @@ class ContactInfoModel {
     this.firstName,
     this.lastName,
     this.phoneNumber,
-    this.city,
-    this.state,
-    this.zipCode,
     this.addresses,
   });
 }

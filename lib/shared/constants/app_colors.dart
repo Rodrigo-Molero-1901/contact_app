@@ -25,5 +25,5 @@ abstract class AppContextColors {
   static const contactAvatar = _AppColors.deepPurpleAccent;
 
   // Edit contact
-  static const infoRow = _AppColors.nero;
+  static const editRow = _AppColors.nero;
 }

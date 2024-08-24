@@ -1,3 +1,3 @@
 abstract class AppConstants {
-  static const contactFields = 6;
+  static const contactFields = 3;
 }

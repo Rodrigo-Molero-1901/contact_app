@@ -1,3 +1,4 @@
+import 'package:contact_app/core/utils/logger.dart';
 import 'package:contact_app/core/utils/utils.dart';
 import 'package:contact_app/features/contact_info/data/models/address_mapper.dart';
 import 'package:contact_app/features/contact_info/data/models/address_model.dart';
@@ -32,7 +33,7 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
     _deleteContactUseCase = DeleteContactUseCase();
     _insertAddressesUseCase = InsertAddressesUseCase();
     _deleteAddressesUseCase = DeleteAddressesUseCase();
-    _logger = Logger();
+    _logger = LoggerUtils.instance;
   }
 
   var _contactInfoStatus = ContactInfoStatus.loading;

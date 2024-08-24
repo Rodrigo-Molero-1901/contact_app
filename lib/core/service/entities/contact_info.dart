@@ -9,9 +9,6 @@ class ContactInfo {
   String firstName;
   String lastName;
   String phoneNumber;
-  String city;
-  String state;
-  String zipCode;
 
   @Backlink()
   final addresses = ToMany<Address>();
@@ -22,9 +19,6 @@ class ContactInfo {
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
-    required this.city,
-    required this.state,
-    required this.zipCode,
   });
 
   factory ContactInfo.fromJson(Map<String, dynamic>? json) {
@@ -33,9 +27,6 @@ class ContactInfo {
       firstName: json?['firstName'] ?? '',
       lastName: json?['lastName'] ?? '',
       phoneNumber: json?['phoneNumber'] ?? '',
-      city: json?['city'] ?? '',
-      state: json?['state'] ?? '',
-      zipCode: json?['zipCode'] ?? '',
     );
   }
 
