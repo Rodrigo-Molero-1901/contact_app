@@ -9,7 +9,7 @@ ContactInfoModel contactInfoModelFromEntity(ContactInfo entity) {
     firstName: entity.firstName,
     lastName: entity.lastName,
     phoneNumber: entity.phoneNumber,
-    addresses: entity.addresses.map((e) => addressModelFromEntity(e)).toList(),
+    addresses: entity.addresses.map(addressModelFromEntity).toList(),
   );
 }
 
