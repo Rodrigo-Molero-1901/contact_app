@@ -31,9 +31,9 @@ class ContactApiManager {
   Future<Either<void, ContactInfo>> createContact(
       {required ContactInfo contactInfo}) async {
     try {
-      final createContact =
+      final createdContact =
           await _api.contactApi.createContact(contactInfo: contactInfo);
-      return Right(createContact);
+      return Right(createdContact);
     } catch (_) {
       return const Left(null);
     }

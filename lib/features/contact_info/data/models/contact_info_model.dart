@@ -1,14 +1,15 @@
+import 'package:contact_app/features/contact_info/data/models/address_model.dart';
+
 class ContactInfoModel {
   int? objectId;
   String? contactId;
   String? firstName;
   String? lastName;
   String? phoneNumber;
-  String? streetAddress1;
-  String? streetAddress2;
   String? city;
   String? state;
   String? zipCode;
+  List<AddressModel>? addresses;
 
   ContactInfoModel({
     this.objectId,
@@ -16,10 +17,9 @@ class ContactInfoModel {
     this.firstName,
     this.lastName,
     this.phoneNumber,
-    this.streetAddress1,
-    this.streetAddress2,
     this.city,
     this.state,
     this.zipCode,
+    this.addresses,
   });
 }

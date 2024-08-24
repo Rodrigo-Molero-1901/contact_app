@@ -72,7 +72,7 @@ class ContactInfoMainView extends StatelessWidget {
             onEditButtonTapped: cubit.onEditButtonTapped,
             onDeleteButtonTapped: () {
               cubit.onDeleteButtonTapped();
-              Navigator.pop(context, true);
+              Navigator.pop(context);
             },
           ),
         ],

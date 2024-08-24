@@ -31,21 +31,17 @@ class _HomeViewState extends State<HomeView> {
       listener: (context, state) async {
         if (state case HomeMain(:final viewModel)) {
           if (viewModel.navigation != null) {
-            bool actionWasPerformed = false;
             switch (viewModel.navigation!) {
               case HomeContactInfoNavigation(:final contactId):
-                final result = await context.push(
+                await context.push(
                   Routes.pathContactInfo,
                   extra: contactId,
                 );
-                actionWasPerformed = result == true;
             }
-            if (actionWasPerformed) {
-              Future.delayed(
-                const Duration(milliseconds: 250),
-                () => _homeCubit.initialize(),
-              );
-            }
+            Future.delayed(
+              const Duration(milliseconds: 250),
+              () => _homeCubit.initialize(),
+            );
           }
         }
       },

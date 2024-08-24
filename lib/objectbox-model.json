@@ -35,16 +35,6 @@
           "type": 9
         },
         {
-          "id": "6:859687032220263981",
-          "name": "streetAddress1",
-          "type": 9
-        },
-        {
-          "id": "7:1507672198482119889",
-          "name": "streetAddress2",
-          "type": 9
-        },
-        {
           "id": "8:1778253952834467245",
           "name": "city",
           "type": 9
@@ -61,10 +51,37 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "5:191820224625259812",
+      "lastPropertyId": "3:4179147345234782799",
+      "name": "Address",
+      "properties": [
+        {
+          "id": "1:8857461108061887267",
+          "name": "objectId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6231615283933203471",
+          "name": "addressName",
+          "type": 9
+        },
+        {
+          "id": "3:4179147345234782799",
+          "name": "contactId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "1:3102206701754290835",
+          "relationTarget": "ContactInfo"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "4:7552741730109386070",
-  "lastIndexId": "0:0",
+  "lastEntityId": "5:191820224625259812",
+  "lastIndexId": "1:3102206701754290835",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
@@ -99,7 +116,9 @@
     6027820855486528700,
     8085009120196536231,
     7351669229056519673,
-    9180691930032347989
+    9180691930032347989,
+    859687032220263981,
+    1507672198482119889
   ],
   "retiredRelationUids": [],
   "version": 1

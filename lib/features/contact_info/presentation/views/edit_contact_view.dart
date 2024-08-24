@@ -1,3 +1,4 @@
+import 'package:contact_app/features/contact_info/data/models/address_model.dart';
 import 'package:contact_app/features/contact_info/data/models/contact_info_model.dart';
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
 import 'package:contact_app/features/contact_info/presentation/utils/enums.dart';
@@ -23,60 +24,84 @@ class EditContactView extends StatefulWidget {
 }
 
 class _EditContactViewState extends State<EditContactView> {
-  late final List<TextEditingController> _txtControllers;
+  late List<TextEditingController> _fieldsControllers;
+  late List<TextEditingController> _addressesControllers;
   bool _isFirstNameEmpty = true;
 
-  get _firstNameCtrl => _txtControllers[0];
-  get _lastNameCtrl => _txtControllers[1];
-  get _phoneNumberCtrl => _txtControllers[2];
-  get _address1Ctrl => _txtControllers[3];
-  get _address2Ctrl => _txtControllers[4];
-  get _cityCtrl => _txtControllers[5];
-  get _stateCtrl => _txtControllers[6];
-  get _zipCodeCtrl => _txtControllers[7];
+  get _firstNameCtrl => _fieldsControllers[0];
+  get _lastNameCtrl => _fieldsControllers[1];
+  get _phoneNumberCtrl => _fieldsControllers[2];
+  get _cityCtrl => _fieldsControllers[3];
+  get _stateCtrl => _fieldsControllers[4];
+  get _zipCodeCtrl => _fieldsControllers[5];
 
   void _createTextEditingControllers() {
-    _txtControllers = List.generate(
+    _fieldsControllers = List.generate(
       AppConstants.contactFields,
       (_) => TextEditingController(),
     );
+    _addressesControllers = [TextEditingController()];
   }
 
   void _populateTextEditingControllers() {
     _firstNameCtrl.text = widget.viewModel.firstName;
     _lastNameCtrl.text = widget.viewModel.lastName;
     _phoneNumberCtrl.text = widget.viewModel.phoneNumber;
-    _address1Ctrl.text = widget.viewModel.streetAddress1;
-    _address2Ctrl.text = widget.viewModel.streetAddress2;
     _cityCtrl.text = widget.viewModel.city;
     _stateCtrl.text = widget.viewModel.state;
     _zipCodeCtrl.text = widget.viewModel.zipCode;
+
+    if (widget.viewModel.addresses.isNotEmpty) {
+      _addressesControllers = widget.viewModel.addresses
+          .map((address) => TextEditingController(text: address))
+          .toList();
+    }
   }
 
-  void _disposeTextEditingControllers() {
-    _firstNameCtrl.dispose();
-    _lastNameCtrl.dispose();
-    _phoneNumberCtrl.dispose();
-    _address1Ctrl.dispose();
-    _address2Ctrl.dispose();
-    _cityCtrl.dispose();
-    _stateCtrl.dispose();
-    _zipCodeCtrl.dispose();
+  void _addAddressField() {
+    setState(() {
+      _addressesControllers.add(TextEditingController());
+    });
+  }
+
+  void _removeAddressField(int index) {
+    setState(() {
+      if (index > 0) {
+        _addressesControllers.removeAt(index);
+      } else {
+        _addressesControllers[0].clear();
+      }
+    });
   }
 
   ContactInfoModel _setContactInfoModel() {
+    final noAddresses = _addressesControllers.length == 1 &&
+        _addressesControllers[0].text.isEmpty;
+
     return ContactInfoModel(
       objectId: widget.viewModel.objectId,
       contactId: widget.viewModel.contactId,
       firstName: _firstNameCtrl.text,
       lastName: _lastNameCtrl.text,
       phoneNumber: _phoneNumberCtrl.text,
-      streetAddress1: _address1Ctrl.text,
-      streetAddress2: _address2Ctrl.text,
       city: _cityCtrl.text,
       state: _stateCtrl.text,
       zipCode: _zipCodeCtrl.text,
+      addresses: noAddresses
+          ? []
+          : _addressesControllers
+              .map((ctrl) => AddressModel(addressName: ctrl.text))
+              .toList(),
     );
+  }
+
+  void _disposeTextEditingControllers() {
+    for (var fieldCtrl in _fieldsControllers) {
+      fieldCtrl.dispose();
+    }
+    for (var addressCtrl in _addressesControllers) {
+      addressCtrl.dispose();
+    }
   }
 
   @override
@@ -132,16 +157,6 @@ class _EditContactViewState extends State<EditContactView> {
               icon: Icons.phone_outlined,
             ),
             EditRow(
-              controller: _address1Ctrl,
-              hint: 'Address #1',
-              icon: Icons.location_on_outlined,
-            ),
-            EditRow(
-              controller: _address2Ctrl,
-              hint: 'Address #2',
-              icon: Icons.location_on_outlined,
-            ),
-            EditRow(
               controller: _cityCtrl,
               hint: 'City',
               icon: Icons.location_city_outlined,
@@ -157,15 +172,42 @@ class _EditContactViewState extends State<EditContactView> {
               icon: Icons.pin_drop_outlined,
               useTextInputActionDone: true,
             ),
+            Column(
+              children: List.generate(_addressesControllers.length, (index) {
+                return Row(
+                  children: [
+                    Expanded(
+                      child: EditRow(
+                        controller: _addressesControllers[index],
+                        hint: 'Address ${index + 1}',
+                        icon: Icons.location_on_outlined,
+                      ),
+                    ),
+                    if (index > 0)
+                      IconButton(
+                        icon: const Icon(Icons.remove_circle_outline),
+                        onPressed: () => _removeAddressField(index),
+                      ),
+                  ],
+                );
+              }),
+            ),
+            IconButton(
+              icon: const Icon(Icons.add_circle_outline),
+              onPressed: _addAddressField,
+            ),
             const SizedBox(height: 20.0),
             EditActionButtons(
               enableAcceptButton: enableAcceptButton,
               onAccept: () {
-                widget.cubit.setContact(_setContactInfoModel());
-                isEditContact
-                    ? widget.cubit.updateContact()
-                    : widget.cubit.createContact();
-                Navigator.pop(context, true);
+                widget.cubit.setContactAndAddresses(_setContactInfoModel());
+                if (isEditContact) {
+                  widget.cubit.updateContact();
+                  widget.cubit.goToContactInfoView();
+                } else {
+                  widget.cubit.createContact();
+                  Navigator.pop(context);
+                }
               },
               onCancel: () => isEditContact
                   ? widget.cubit.goToContactInfoView()
