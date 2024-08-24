@@ -24,4 +24,13 @@ class AddressViewModel {
       zipCode: model.zipCode ?? '',
     );
   }
+
+  String get displayStreetAddress =>
+      streetAddress.isEmpty ? 'Address' : streetAddress;
+
+  String get displayCity => city.isEmpty ? 'City' : city;
+
+  String get displayState => state.isEmpty ? 'State' : state;
+
+  String get displayZipCode => zipCode.isEmpty ? 'Zip Code' : zipCode;
 }

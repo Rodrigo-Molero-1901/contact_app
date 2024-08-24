@@ -92,7 +92,7 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
   void setContactAndAddresses(ContactInfoModel model) {
     _contactInfo = model;
     if ((model.contactId ?? '').isEmpty) {
-      _contactInfo.contactId = AppUtils.generateRandomContactID();
+      _contactInfo.contactId = Utils.generateRandomContactID();
     }
 
     if (model.addresses != null && model.addresses!.isNotEmpty) {
@@ -135,6 +135,7 @@ class ContactInfoCubit extends Cubit<ContactInfoState> {
         } else {
           await _deleteAddresses();
         }
+        goToContactInfoView();
       },
     );
   }

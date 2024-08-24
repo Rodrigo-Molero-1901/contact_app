@@ -29,7 +29,7 @@ class ContactRow extends StatelessWidget {
           SlidableAction(
             onPressed: (_) => onCall?.call(),
             backgroundColor: AppContextColors.call,
-            foregroundColor: Colors.white,
+            foregroundColor: AppContextColors.slidableForeground,
             icon: Icons.call,
             label: 'Call',
           ),
@@ -42,7 +42,7 @@ class ContactRow extends StatelessWidget {
           SlidableAction(
             onPressed: (_) => onMessage?.call(),
             backgroundColor: AppContextColors.sms,
-            foregroundColor: Colors.white,
+            foregroundColor: AppContextColors.slidableForeground,
             icon: Icons.sms,
             label: 'SMS',
           ),
@@ -69,7 +69,13 @@ class ContactRow extends StatelessWidget {
                         child: Text(contact.letterIdentifier),
                       ),
                       const SizedBox(width: 20.0),
-                      Text(contact.fullName)
+                      Expanded(
+                        child: Text(
+                          contact.fullName,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 20.0),
                     ],
                   ),
                 ),

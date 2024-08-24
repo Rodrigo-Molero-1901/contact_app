@@ -1,56 +1,55 @@
 import 'package:contact_app/shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class EditRow extends StatelessWidget {
-  final TextEditingController controller;
-  final String hint;
+class InformationRow extends StatelessWidget {
+  final String text;
   final IconData icon;
+  final bool disableColor;
   final bool showDivider;
-  final bool useTextInputActionDone;
 
-  const EditRow({
+  const InformationRow({
     super.key,
-    required this.controller,
-    required this.hint,
+    required this.text,
     required this.icon,
+    this.disableColor = false,
     this.showDivider = true,
-    this.useTextInputActionDone = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: const BoxDecoration(
-        color: AppContextColors.editRow,
+        color: AppContextColors.contactInfoRow,
       ),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 15.0),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(width: 20.0),
                 Icon(icon),
                 const SizedBox(width: 15.0),
                 Expanded(
-                  child: TextFormField(
-                    controller: controller,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: hint,
-                    ),
-                    textInputAction: useTextInputActionDone
-                        ? TextInputAction.done
-                        : TextInputAction.next,
+                  child: Text(
+                    text,
+                    overflow: TextOverflow.ellipsis,
+                    style: disableColor
+                        ? const TextStyle(
+                            color: AppContextColors.emptyInfoField,
+                          )
+                        : null,
                   ),
                 ),
+                const SizedBox(width: 20.0),
               ],
             ),
           ),
           if (showDivider)
             const Padding(
               padding: EdgeInsets.only(
-                left: 80.0,
+                left: 55.0,
                 right: 20.0,
               ),
               child: Divider(

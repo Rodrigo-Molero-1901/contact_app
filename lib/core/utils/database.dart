@@ -1,6 +1,6 @@
 import 'package:contact_app/objectbox.g.dart';
 
-abstract class AppDatabase {
+abstract class DatabaseUtils {
   static late final Store _store;
 
   static Store get storeInstance => _store;

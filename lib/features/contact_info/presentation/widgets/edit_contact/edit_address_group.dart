@@ -1,14 +1,14 @@
-import 'package:contact_app/features/contact_info/presentation/widgets/edit_row.dart';
+import 'package:contact_app/features/contact_info/presentation/widgets/edit_contact/edit_row.dart';
 import 'package:flutter/material.dart';
 
-class AddressGroup extends StatelessWidget {
+class EditAddressGroup extends StatelessWidget {
   final List<TextEditingController> streetAddrControllers;
   final List<TextEditingController> cityControllers;
   final List<TextEditingController> stateControllers;
   final List<TextEditingController> zipCodeControllers;
   final Function(int) onRemove;
 
-  const AddressGroup({
+  const EditAddressGroup({
     super.key,
     required this.streetAddrControllers,
     required this.cityControllers,

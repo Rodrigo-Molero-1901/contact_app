@@ -1,12 +1,12 @@
-import 'package:contact_app/features/contact_info/presentation/widgets/edit_row.dart';
+import 'package:contact_app/features/contact_info/presentation/widgets/edit_contact/edit_row.dart';
 import 'package:flutter/material.dart';
 
-class EditInfoGroup extends StatelessWidget {
+class EditGroup extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final IconData icon;
 
-  const EditInfoGroup({
+  const EditGroup({
     super.key,
     required this.controller,
     required this.hint,

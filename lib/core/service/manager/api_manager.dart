@@ -9,7 +9,7 @@ class ApiManager {
   late final Api _api;
 
   ApiManager() {
-    _store = AppDatabase.storeInstance;
+    _store = DatabaseUtils.storeInstance;
     _api = Api(_store);
   }
 

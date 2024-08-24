@@ -1,6 +1,6 @@
 import 'dart:math';
 
-abstract class AppUtils {
+abstract class Utils {
   static String generateRandomContactID() {
     const String chars = 'abcdef0123456789';
     Random random = Random();

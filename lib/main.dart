@@ -15,7 +15,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-  await AppDatabase.init();
+  await DatabaseUtils.init();
   runApp(const MyApp());
 }
 

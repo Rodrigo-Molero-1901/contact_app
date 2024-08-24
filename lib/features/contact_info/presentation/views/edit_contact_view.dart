@@ -3,10 +3,10 @@ import 'package:contact_app/features/contact_info/data/models/contact_info_model
 import 'package:contact_app/features/contact_info/presentation/blocs/contact_info_cubit.dart';
 import 'package:contact_app/features/contact_info/presentation/utils/enums.dart';
 import 'package:contact_app/features/contact_info/presentation/viewmodels/contact_info_view_model.dart';
-import 'package:contact_app/features/contact_info/presentation/widgets/address_group.dart';
-import 'package:contact_app/features/contact_info/presentation/widgets/edit_action_buttons.dart';
-import 'package:contact_app/features/contact_info/presentation/widgets/edit_header.dart';
-import 'package:contact_app/features/contact_info/presentation/widgets/edit_info_group.dart';
+import 'package:contact_app/features/contact_info/presentation/widgets/edit_contact/edit_address_group.dart';
+import 'package:contact_app/features/contact_info/presentation/widgets/edit_contact/edit_action_buttons.dart';
+import 'package:contact_app/features/contact_info/presentation/widgets/edit_contact/edit_header.dart';
+import 'package:contact_app/features/contact_info/presentation/widgets/edit_contact/edit_group.dart';
 import 'package:contact_app/shared/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -152,62 +152,67 @@ class _EditContactViewState extends State<EditContactView> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            EditHeader(
-              pageType: infoPageType,
-              onBackTapped: () => isEditContact
-                  ? widget.cubit.goToContactInfoView()
-                  : Navigator.pop(context),
+      child: Column(
+        children: [
+          EditHeader(
+            pageType: infoPageType,
+            onBackTapped: () => isEditContact
+                ? widget.cubit.goToContactInfoView()
+                : Navigator.pop(context),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 10.0),
+                  EditGroup(
+                    controller: _firstNameCtrl,
+                    hint: 'First name',
+                    icon: Icons.person_outline,
+                  ),
+                  EditGroup(
+                    controller: _lastNameCtrl,
+                    hint: 'Last name',
+                    icon: Icons.person_outline,
+                  ),
+                  EditGroup(
+                    controller: _phoneNumberCtrl,
+                    hint: 'Phone number',
+                    icon: Icons.phone_outlined,
+                  ),
+                  EditAddressGroup(
+                    streetAddrControllers: _streetAddrControllers,
+                    cityControllers: _cityControllers,
+                    stateControllers: _stateControllers,
+                    zipCodeControllers: _zipCodeControllers,
+                    onRemove: _removeAddressField,
+                  ),
+                  TextButton.icon(
+                    onPressed: _addAddressField,
+                    icon: const Icon(Icons.add_circle_outline),
+                    label: const Text('Add address'),
+                  ),
+                  const SizedBox(height: 20.0),
+                ],
+              ),
             ),
-            const SizedBox(height: 10.0),
-            EditInfoGroup(
-              controller: _firstNameCtrl,
-              hint: 'First name',
-              icon: Icons.person_outline,
-            ),
-            EditInfoGroup(
-              controller: _lastNameCtrl,
-              hint: 'Last name',
-              icon: Icons.person_outline,
-            ),
-            EditInfoGroup(
-              controller: _phoneNumberCtrl,
-              hint: 'Phone number',
-              icon: Icons.phone_outlined,
-            ),
-            AddressGroup(
-              streetAddrControllers: _streetAddrControllers,
-              cityControllers: _cityControllers,
-              stateControllers: _stateControllers,
-              zipCodeControllers: _zipCodeControllers,
-              onRemove: _removeAddressField,
-            ),
-            TextButton.icon(
-              onPressed: _addAddressField,
-              icon: const Icon(Icons.add_circle_outline),
-              label: const Text('Add address'),
-            ),
-            const SizedBox(height: 20.0),
-            EditActionButtons(
-              enableAcceptButton: isEditContact ? true : !_firstNameIsEmpty,
-              onAccept: () {
-                widget.cubit.setContactAndAddresses(_setContactInfoModel());
-                if (isEditContact) {
-                  widget.cubit.updateContact();
-                  widget.cubit.goToContactInfoView();
-                } else {
-                  widget.cubit.createContact();
-                  Navigator.pop(context);
-                }
-              },
-              onCancel: () => isEditContact
-                  ? widget.cubit.goToContactInfoView()
-                  : Navigator.pop(context),
-            ),
-          ],
-        ),
+          ),
+          EditActionButtons(
+            enableAcceptButton: isEditContact ? true : !_firstNameIsEmpty,
+            onAccept: () {
+              widget.cubit.setContactAndAddresses(_setContactInfoModel());
+              if (isEditContact) {
+                widget.cubit.updateContact();
+              } else {
+                widget.cubit.createContact();
+                Navigator.pop(context);
+              }
+            },
+            onCancel: () => isEditContact
+                ? widget.cubit.goToContactInfoView()
+                : Navigator.pop(context),
+          ),
+        ],
       ),
     );
   }
